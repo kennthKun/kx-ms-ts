@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import Routes from './routes';
 import store from './store';
 import './App.css';
+import './page_department.less'
+import './kx.less'
 
 class App extends Component {
   componentDidCatch() { }

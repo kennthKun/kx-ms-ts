@@ -40,8 +40,8 @@ declare module '*.png' {
 }
 
 declare module '*.webp' {
-    const src: string;
-    export default src;
+  const src: string;
+  export default src;
 }
 
 declare module '*.svg' {
@@ -74,3 +74,7 @@ declare module "*.less" {
   const content: { [className: string]: string };
   export default content;
 }
+
+declare module '@'
+
+// declare const API_ENV: 'test' | 'dev' | 'pre' | 'prod';

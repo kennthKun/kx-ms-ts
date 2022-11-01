@@ -1,25 +1,25 @@
 import axios from 'axios';
 import { message } from 'antd';
+import { getHeaders } from '@/utils';
 import { HTTP_STATUS } from '../consts/statusCode';
-import { CMS_BASEURL, ACCESS_TOKEN } from '../consts/env';
-import Cookie from './tools/cookie';
+// import { CMS_BASEURL } from '../consts/env';
+// import Cookie from './tools/cookie';
 import logUtils from './tools/logUtils';
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 axios.defaults.timeout = 50000;
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
-axios.defaults.baseURL = CMS_BASEURL;
+// axios.defaults.baseURL = CMS_BASEURL;
 // 中间件 拦截请求-
 axios.interceptors.request.use(
-  (config) => {
-    const token = Cookie.get(ACCESS_TOKEN);
-    if (token) {
-      if (!config.params || (config.params && !config.params.disable_token)) {
-        // eslint-disable-next-line no-param-reassign
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+  (config: any) => {
+
+    const headers = {
+      ...config.headers,
+      ...getHeaders()
     }
+    config.headers = config.url.indexOf('restapi.amap.com') === -1 ? headers : {}
     return config;
   },
   (err) => {
@@ -28,11 +28,6 @@ axios.interceptors.request.use(
 );
 axios.interceptors.response.use(
   (response) => {
-    // jwt认证失效
-    // if (response?.data?.code === COMMON_STATUS.JWT_FAILED) {
-    //   console.log(response);
-    //   // window.location.href = '/login';
-    // }
     return response;
   },
   (err) => {
@@ -50,7 +45,7 @@ axios.interceptors.response.use(
   },
 );
 
-const safeRequest = (url, options) => {
+const safeRequest = (url: string, options: any) => {
   return new Promise((resolve, reject) => {
     axios({
       method: 'GET',
@@ -78,7 +73,7 @@ const safeRequest = (url, options) => {
  * @param opts
  * @returns {Promise}
  */
-const get = (url, opts = {}) => {
+const get = (url: string, opts = {}) => {
   return safeRequest(url, opts);
 };
 
@@ -88,7 +83,7 @@ const get = (url, opts = {}) => {
  * @param opts
  * @returns {Promise}
  */
-const post = (url, opts = {}) => {
+const post = (url: string, opts = {}) => {
   return safeRequest(url, {
     ...opts,
     method: 'POST',
@@ -101,7 +96,7 @@ const post = (url, opts = {}) => {
  * @param opts
  * @returns {Promise}
  */
-const put = (url, opts = {}) => {
+const put = (url: string, opts = {}) => {
   return safeRequest(url, {
     ...opts,
     method: 'PUT',

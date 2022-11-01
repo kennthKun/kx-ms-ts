@@ -1,0 +1,71 @@
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+// import { useModel, history } from '@umijs/max';
+import styles from '../index.module.less';
+import { changePhoneType } from '../../../utils';
+import { message } from 'antd';
+// import { setLocaleStorage } from '@/utils/cookie';
+interface selectTenant {
+  setType: Function;
+  tenantList: any[];
+}
+const SelectTenant = ({ setType, tenantList }: selectTenant) => {
+  // const { initialState, setInitialState } = useModel('@@initialState');
+
+  const clickTenant = async (tenantId: string) => {
+    // setLocaleStorage('TENANTID', tenantId);
+    // const currentUser = await initialState?.fetchUserInfo?.();
+    // const RoleList = await initialState?.getRoleListFun?.();
+    // const ResourceList = await initialState?.getResourceList?.();
+    // await setInitialState((s) => ({
+    //   ...s,
+    //   currentUser,
+    //   TenantList: tenantList,
+    //   RoleList,
+    //   ResourceList,
+    // }));
+
+    // message.success('登录成功！');
+    // history.push(`/workBench/page`);
+  };
+
+  return (
+    <div className={styles.selectTenant}>
+      <span onClick={() => setType(1)} style={{ cursor: 'pointer' }}>
+        <LeftOutlined style={{ marginRight: '5px' }} />
+        返回
+      </span>
+
+      <div className={styles.tips}>你可进入以下企业</div>
+      <div className={styles.tips_t}>
+        <span>{changePhoneType(tenantList[0]?.account?.phone)}</span>
+        你在一下企业或组织绑定了账号，你可进入以下任一企业或组织
+      </div>
+      <div style={{ height: '360px', overflow: 'auto' }}>
+        {tenantList?.map((item: any) => {
+          return (
+            <div
+              key={item?.tenantId}
+              className={styles.tenant_list}
+              onClick={() => clickTenant(item?.tenantId)}
+            >
+              <div className={styles.t_logo}>
+                {item?.icon ? (
+                  <img className={styles.img_logo} src={item?.icon} />
+                ) : (
+                  <div className={styles.text_logo}>{item?.name?.charAt(0)}</div>
+                )}
+              </div>
+              <div className={styles.name}>
+                <div className={styles.title}>{item?.name}</div>
+                <div>{item?.account?.name}</div>
+              </div>
+              <RightOutlined />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default SelectTenant;

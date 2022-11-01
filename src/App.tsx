@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { ConfigProvider } from 'antd';
+import zhCn from 'antd/es/locale/zh_CN';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import Routes from './routes';
+import store from './store';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class App extends Component {
+  componentDidCatch() { }
 
+  render() {
+    return (
+      <ConfigProvider locale={zhCn} >
+        <Provider store={store}>
+          <BrowserRouter>
+            <Routes />
+          </BrowserRouter>
+        </Provider>
+      </ConfigProvider>
+    );
+  }
+}
 export default App;

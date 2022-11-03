@@ -4,7 +4,7 @@ import { clearCookie, setCookie } from '@/utils/cookie';
 import { getFakeCaptcha, postLogin } from '@/services/login';
 import { useEffect, useState } from 'react';
 import {API_ENV} from "@/const/env"
-// import { useModel } from '@umijs/max';
+import {useDispatch} from "react-redux"
 import { Privacy } from '../components/agreementText';
 
 const FormItem = Form.Item;
@@ -12,12 +12,15 @@ const { Option } = Select;
 const CODE_TIME_NUM = 60;
 const PhoneLoginWapper = ({ seeAgreement, setType, setTenantList }: any) => {
   const [form] = Form.useForm();
-  // const { initialState } = useModel('@@initialState');
   const [checked, setchecked] = useState(true);
   const [phoneIsError, setPhoneIsError] = useState<boolean>(false);
   const [codeIsError, setCodeIsError] = useState<boolean>(false);
   const [verifyButtonTime, setverifyButtonTime] = useState<number>(CODE_TIME_NUM);
   const [codeBtnState, setCodeBtnState] = useState<boolean>(false);
+  
+  const {
+    initStore
+  }:any = useDispatch();
 
   useEffect(() => {
     clearCookie('AILIEYUN_ACCESS_TOKEN');
@@ -54,7 +57,7 @@ const PhoneLoginWapper = ({ seeAgreement, setType, setTenantList }: any) => {
         const result: any = await getFakeCaptcha(mobile);
         console.log(result)
         if (result) {
-          API_ENV === 'dev'
+          ['dev','test'].includes(API_ENV)
             ? message.success(`验证码为${result?.data}`)
             : message.success('获取验证码成功！');
         }
@@ -89,17 +92,17 @@ const PhoneLoginWapper = ({ seeAgreement, setType, setTenantList }: any) => {
       } else {
         setCookie('AILIEYUN_ACCESS_TOKEN', `${res.token_type} ${res.access_token}`, 7);
 
-  //       const TenantListData = await initialState?.getTenantListFun?.();
-  //       if (TenantListData?.length > 1) {
-  //         setType(2);
-  //         setTenantList(TenantListData);
-  //       } else {
-  //         await initialState?.fetchUserInfo?.();
-  //         await initialState?.getRoleListFun?.();
-  //         await initialState?.getResourceList?.();
-  //         message.success('登录成功！');
-  //         window.location.href = '/';
-  //       }
+        const TenantListData = await initStore?.getTenantListFun?.();
+        console.log(TenantListData)
+        if (TenantListData?.length > 1) {
+          setType(2);
+          setTenantList(TenantListData);
+        } else {
+          await initStore?.fetchUserInfo?.();
+          await initStore?.getRoleListFun?.();
+          message.success('登录成功！');
+          window.location.href = '/';
+        }
 
         return;
       }

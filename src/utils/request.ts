@@ -67,46 +67,4 @@ const safeRequest = (url: string, options: any) => {
   });
 };
 
-/**
- * get
- * @param url
- * @param opts
- * @returns {Promise}
- */
-const get = (url: string, opts = {}) => {
-  return safeRequest(url, opts);
-};
-
-/**
- * post
- * @param url
- * @param opts
- * @returns {Promise}
- */
-const post = (url: string, opts = {}) => {
-  return safeRequest(url, {
-    ...opts,
-    method: 'POST',
-  });
-};
-
-/**
- * put
- * @param url
- * @param opts
- * @returns {Promise}
- */
-const put = (url: string, opts = {}) => {
-  return safeRequest(url, {
-    ...opts,
-    method: 'PUT',
-  });
-};
-
-const request = {
-  get,
-  post,
-  put,
-};
-
-export default request;
+export default safeRequest;

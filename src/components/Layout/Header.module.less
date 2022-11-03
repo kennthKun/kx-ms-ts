@@ -1,13 +1,49 @@
 .header {
   background: #fff;
-  padding: 0;
+  padding: 0 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 64px;
-  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   opacity: 1;
-  
+  z-index: 999;
+
+  .header_left {
+    display: flex;
+    align-items: center;
+
+    .breadcrumb_wapper {
+      padding-left: 12px;
+
+      .breadcrumb_icon {
+        display: flex;
+        align-items: center;
+        font-size: 24px;
+      }
+    }
+  }
+
+  .menu_item_icon {
+    color: #3A4B5E;
+    font-size: 24px;
+    position: relative;
+    padding-right: 12px;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      background: #B6C2CD;
+      width: 1px;
+      height: 20px;
+      position: absolute;
+      top: 0px;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+    }
+  }
+
   .trigger {
     font-size: 24px;
     padding-left: 16px;

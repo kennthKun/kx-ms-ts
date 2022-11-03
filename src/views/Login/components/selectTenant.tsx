@@ -3,7 +3,7 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import styles from '../index.module.less';
 import { changePhoneType } from '../../../utils';
 import { message } from 'antd';
-// import { setLocaleStorage } from '@/utils/cookie';
+import { setLocaleStorage } from '@/utils/cookie';
 interface selectTenant {
   setType: Function;
   tenantList: any[];
@@ -12,7 +12,7 @@ const SelectTenant = ({ setType, tenantList }: selectTenant) => {
   // const { initialState, setInitialState } = useModel('@@initialState');
 
   const clickTenant = async (tenantId: string) => {
-    // setLocaleStorage('TENANTID', tenantId);
+    setLocaleStorage('TENANTID', tenantId);
     // const currentUser = await initialState?.fetchUserInfo?.();
     // const RoleList = await initialState?.getRoleListFun?.();
     // const ResourceList = await initialState?.getResourceList?.();

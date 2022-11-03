@@ -2,7 +2,7 @@
  * @Author: 常坤 c_kunx@163.com
  * @Date: 2022-11-01 12:09:40
  * @LastEditors: 常坤 c_kunx@163.com
- * @LastEditTime: 2022-11-01 15:26:22
+ * @LastEditTime: 2022-11-01 17:05:00
  * @FilePath: /kx-ms-ts/src/views/Login/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -13,6 +13,7 @@ import PhoneLoginWapper from './components/PhoneLoginWapper';
 import Agreement from './components/agreement';
 import SelectTenant from './components/selectTenant';
 import styles from './index.module.less';
+import {useDispatch, useSelector} from "react-redux"
 
 interface agreemet {
   title: string;
@@ -20,7 +21,9 @@ interface agreemet {
 }
 
 const Login = () => {
-
+  const {
+    initStore
+  }:any = useDispatch();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState(1);
   const [tenantList, setTenantList] = useState<any[]>([]);
@@ -31,9 +34,9 @@ const Login = () => {
   };
 
   useEffect(() => {
-    console.log()
     clearCookie('AILIEYUN_ACCESS_TOKEN');
     removeLocaleStorage('ROLE_DATA');
+    initStore.getAppFun()
   }, []);
   
   return <>

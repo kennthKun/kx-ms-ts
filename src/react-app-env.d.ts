@@ -77,4 +77,5 @@ declare module "*.less" {
 
 declare module '@'
 
+declare module 'lodash'
 // declare const API_ENV: 'test' | 'dev' | 'pre' | 'prod';

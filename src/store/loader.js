@@ -4,10 +4,10 @@
  * The file enables `models` to import all models
  * in a one-shot manner. There should not be any reason to edit this file.
  */
-const files = require.context('./models', false, /\.js$/);
+const files = require.context('./models', false, /\.js|\.ts$/);
 const models = {};
 files.keys().forEach((key) => {
-  const filename = key.replace(/(\.\/|\.js)/g, '');
+  const filename = key.replace(/(\.\/|\.js|\.ts)/g, '');
   models[filename] = files(key).default;
 });
 export default models;

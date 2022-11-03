@@ -8,7 +8,7 @@ import store from './store';
 import './App.css';
 import './page_department.less'
 import './kx.less'
-
+import "./iconfont.js"
 class App extends Component {
   componentDidCatch() { }
 

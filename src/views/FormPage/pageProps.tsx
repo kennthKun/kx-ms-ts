@@ -23,6 +23,22 @@ export default {
   },
   "FormList": [
     {
+      $id: 8,
+      valueType: 'money',
+      FormItemProps: {
+        label: '金额',
+        name: 8,
+      },
+    },
+    {
+      $id: 7,
+      valueType: 'digit',
+      FormItemProps: {
+        label: '数字输入框',
+        name: 7,
+      },
+    },
+    {
       $id: 6,
       valueType: 'password',
       FormItemProps: {
@@ -58,12 +74,6 @@ export default {
       FormItemProps: {
         label: '文本',
         name: '2',
-        rules: [
-          {
-            pattern: /^\S.*\S$|(^\S{0,1}\S$)/,
-            message: '前后不可输入空格',
-          },
-        ],
       },
     },
     {

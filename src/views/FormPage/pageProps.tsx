@@ -23,11 +23,41 @@ export default {
   },
   "FormList": [
     {
-      $id: 12,
+      $id: 6,
+      valueType: 'password',
+      FormItemProps: {
+        label: '密码',
+        name: 6,
+      }
+    },
+    {
+      $id: 5,
+      valueType: 'switch',
+      FormItemProps: {
+        label: '开关',
+        name: 5,
+      }
+    },
+    {
+      $id: 1,
+      valueType: "radio",
+      FormItemProps: {
+        label: '单选框',
+        name: 1,
+      },
+      ControlProps: {
+        options: [
+          { label: "选项一", value: "1" },
+          { label: "选项二", value: "2" }
+        ],
+      },
+    },
+    {
+      $id: 2,
       valueType: "text",
       FormItemProps: {
         label: '文本',
-        name: 'text',
+        name: '2',
         rules: [
           {
             pattern: /^\S.*\S$|(^\S{0,1}\S$)/,
@@ -37,13 +67,24 @@ export default {
       },
     },
     {
-      $id: 11,
+      $id: 3,
       valueType: 'select',
       FormItemProps: {
         label: '下拉框',
-        name: 11,
+        name: 3,
       },
-      options: [],
+      options: [{
+        label: "1",
+        value: "22"
+      }]
+    },
+    {
+      $id: 4,
+      valueType: 'select',
+      FormItemProps: {
+        label: '下拉框',
+        name: 4,
+      },
       ControlFieldNames: {
         valueName: "fieldTypeId",
         labelName: "typeDesc",
@@ -53,6 +94,30 @@ export default {
         type: "post",
         params: { data: {} },
         getData: ["data", "data"]
+      },
+    },
+    {
+      $id: 0,
+      valueType: "BottomSubButton",
+      pType: "baseFormComponent",
+      FormItemProps: {
+        label: '底部提交',
+        name: 0,
+        rules: [],
+        style: {
+          margin: 0,
+          padding: "10px"
+        }
+      },
+      ControlProps: {
+        prefix: "", // 带有前缀图标的 input
+        suffix: "", // 带有后缀图标的 input
+        disabled: false,
+        maxLength: null,
+        placeholder: "请输入",
+        type: "input",
+        allowClear: true,
+        style: {}
       },
     }
   ],

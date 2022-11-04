@@ -23,6 +23,46 @@ export default {
   },
   "FormList": [
     {
+      $id: 13,
+      valueType: 'dateTimeRange',
+      FormItemProps: {
+        label: '日期时间区间',
+        name: 13,
+      },
+    },
+    {
+      $id: 12,
+      valueType: 'dateTime',
+      FormItemProps: {
+        label: '日期时间',
+        name: 12,
+      },
+    },
+    {
+      $id: 11,
+      valueType: 'dateRange',
+      FormItemProps: {
+        label: '日期区间',
+        name: 11,
+      },
+    },
+    {
+      $id: 10,
+      valueType: 'date',
+      FormItemProps: {
+        label: '日期',
+        name: 10,
+      }
+    },
+    {
+      $id: 9,
+      valueType: 'textarea',
+      FormItemProps: {
+        label: '文本域',
+        name: 9,
+      },
+    },
+    {
       $id: 8,
       valueType: 'money',
       FormItemProps: {

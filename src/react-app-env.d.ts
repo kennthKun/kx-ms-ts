@@ -1,3 +1,11 @@
+/*
+ * @Author: kennthKun c_kunx@163.com
+ * @Date: 2022-11-01 11:42:04
+ * @LastEditors: kennthKun c_kunx@163.com
+ * @LastEditTime: 2022-11-03 14:47:36
+ * @FilePath: /kx-ms-ts/src/react-app-env.d.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 /// <reference types="node" />
 /// <reference types="react" />
 /// <reference types="react-dom" />
@@ -76,6 +84,9 @@ declare module "*.less" {
 }
 
 declare module '@'
-
+declare module 'antd'
 declare module 'lodash'
+declare module 'react-redux'
+declare module 'kx_component'
+declare module '@ant-design/icons'
 // declare const API_ENV: 'test' | 'dev' | 'pre' | 'prod';

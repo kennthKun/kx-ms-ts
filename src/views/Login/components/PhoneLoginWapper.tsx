@@ -155,7 +155,7 @@ const PhoneLoginWapper = ({ seeAgreement, setType, setTenantList }: any) => {
         </Button>
       </Form>
       <div className={styles.agreement}>
-        <Checkbox checked={checked} onChange={(e) => setchecked(e.target.checked)}>
+        <Checkbox checked={checked} onChange={(e:any) => setchecked(e.target.checked)}>
           登录即同意
         </Checkbox>
         <a onClick={() => seeAgreement(Privacy)}>《用户协议》</a>和

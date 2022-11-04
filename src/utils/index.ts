@@ -1,8 +1,8 @@
 /*
  * @Author: 常坤 c_kunx@163.com
  * @Date: 2022-11-01 11:56:52
- * @LastEditors: 常坤 c_kunx@163.com
- * @LastEditTime: 2022-11-01 15:11:42
+ * @LastEditors: kennthKun c_kunx@163.com
+ * @LastEditTime: 2022-11-04 11:35:42
  * @FilePath: /kx-ms-ts/src/utils/index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -27,8 +27,8 @@ export function getHeaders() {
   return {
     'Content-Type': 'application/json',
     Authorization: `${token}`,
-    dept_id: JSON.parse(ROLE_DATA)?.deptId || '',
-    role_id: JSON.parse(ROLE_DATA)?.roleId || '',
+    dept_id: JSON.parse(ROLE_DATA)?.deptId || '1',
+    role_id: JSON.parse(ROLE_DATA)?.roleId || '1',
     app_id: getSessionStorage('APPID') || DEFAULT_ID?.APPID,
     tenant_id: getLocaleStorage('TENANTID') || DEFAULT_ID?.TENANT_ID,
     Domain: window.location.hostname,

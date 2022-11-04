@@ -44,6 +44,10 @@ export default {
         name: 11,
       },
       options: [],
+      ControlFieldNames: {
+        valueName: "fieldTypeId",
+        labelName: "typeDesc",
+      },
       request: {
         url: "https://dev.ailieyun.com/api/custom/businessGoodsFieldType/list",
         type: "post",

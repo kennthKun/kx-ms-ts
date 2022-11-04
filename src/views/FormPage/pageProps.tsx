@@ -191,26 +191,6 @@ export default {
     {
       $id: 0,
       valueType: "BottomSubButton",
-      pType: "baseFormComponent",
-      FormItemProps: {
-        label: '底部提交',
-        name: 0,
-        rules: [],
-        style: {
-          margin: 0,
-          padding: "10px"
-        }
-      },
-      ControlProps: {
-        prefix: "", // 带有前缀图标的 input
-        suffix: "", // 带有后缀图标的 input
-        disabled: false,
-        maxLength: null,
-        placeholder: "请输入",
-        type: "input",
-        allowClear: true,
-        style: {}
-      },
     }
   ],
 }

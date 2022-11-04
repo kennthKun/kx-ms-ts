@@ -1,0 +1,269 @@
+@primary-color: #247cff;
+@roleWidth: auto;
+@pro-header-hover-bg: rgba(0, 0, 0, 0.025);
+@show-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%), 0 1px 2px 0 rgb(25 15 15 / 7%),
+  0 0 1px 0 rgb(0 0 0 / 8%);
+
+.menu {
+  :global(.anticon) {
+    margin-right: 8px;
+  }
+
+  :global(.ant-dropdown-menu-item) {
+    min-width: 160px;
+  }
+}
+
+.right {
+  display: flex;
+  float: right;
+  height: 48px;
+  margin-left: auto;
+
+  // overflow: hidden;
+  .action {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    >span {
+      vertical-align: middle;
+    }
+
+    &:hover {
+      background: @pro-header-hover-bg;
+    }
+
+    &:global(.opened) {
+      background: @pro-header-hover-bg;
+    }
+  }
+
+  .search {
+    padding: 0 12px;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+
+  .account {
+    .avatar {
+      margin-right: 8px;
+      color: @primary-color;
+      vertical-align: top;
+      background: rgba(255, 255, 255, 0.85);
+    }
+  }
+}
+
+
+
+.role_wapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: @roleWidth;
+  height: 56px;
+  cursor: pointer;
+
+  &:hover {
+    .role_list {
+      display: block;
+    }
+  }
+
+  .role_now_wapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &.role_now_wapper_one {
+      padding-right: 20px;
+
+      &::after {
+        position: absolute;
+        top: 5px;
+        right: 0;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        margin: auto;
+        border-top: 5px solid rgba(182, 194, 205, 0.8);
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid transparent;
+        content: '';
+      }
+    }
+  }
+
+  .role_self_wapper {
+    position: relative;
+
+    .activity {
+      position: absolute;
+      right: 0px;
+      font-size: 12px;
+      line-height: 25px;
+    }
+  }
+
+  .role_self {
+    display: inline-block;
+    box-sizing: border-box;
+    width: @roleWidth;
+    height: 25px;
+    padding: 0 5px;
+    overflow: hidden;
+    font-size: 12px;
+    font-family: PingFangSC-Regular;
+    line-height: 25px;
+    white-space: nowrap;
+    text-align: center;
+    text-overflow: ellipsis;
+    border: 1px solid transparent;
+    border-radius: 3px;
+  }
+
+  .role_list {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    z-index: 999;
+    display: none;
+    box-sizing: border-box;
+    width: 177px;
+    min-height: 10px;
+    max-height: 40vh;
+    overflow-y: auto;
+    line-height: initial;
+    text-align: center;
+    background: #fff;
+    border: 1px solid transparent;
+    box-shadow: @show-shadow;
+
+    .list_item {
+      position: relative;
+      padding: 10px;
+      padding-top: 0;
+      text-align: left;
+
+      .list_item_inner {
+        padding-top: 10px;
+        border-top: 1px solid #f9f7f7;
+      }
+
+      &:first-of-type .list_item_inner {
+        border-top: 1px solid transparent;
+      }
+
+      .department {
+        display: block;
+        width: 100%;
+        height: 14px;
+        margin-top: 4px;
+        overflow: hidden;
+        color: rgba(50, 68, 88, 0.8);
+        font-size: 10px;
+        font-family: PingFangSC-Regular;
+        line-height: 14px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+
+.company_wapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 64px;
+  font-size: 14px;
+
+  &.company_wapper_one {
+    padding-right: 20px;
+
+    &::after {
+      position: absolute;
+      top: 5px;
+      right: 0;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      margin: auto;
+      border-top: 5px solid rgba(182, 194, 205, 0.8);
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 5px solid transparent;
+      content: '';
+    }
+  }
+
+  &:hover {
+    .company_awpper_box {
+      display: block;
+    }
+  }
+
+  .company_awpper_box {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    z-index: 999;
+    display: none;
+    box-sizing: border-box;
+    width: 258px;
+    min-height: 10px;
+    max-height: 40vh;
+    padding: 0 10px;
+    overflow-y: auto;
+    line-height: initial;
+    background: #fff;
+    border: 1px solid transparent;
+    box-shadow: @show-shadow;
+
+    .company_item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      border-top: 1px solid #f9f7f7;
+      cursor: pointer;
+
+      :global {
+        .kx-building-fill {
+          color: #386cf6;
+          font-size: 15px;
+        }
+      }
+
+      .name {
+        display: inline-block;
+        width: 192px;
+        padding-left: 10px;
+        overflow: hidden;
+        color: rgba(50, 68, 88, 0.8);
+        font-size: 12px;
+        font-family: PingFangSC-Regular;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      &:first-of-type {
+        border-top: 1px solid transparent;
+      }
+
+      .activity {
+        position: absolute;
+        right: 0px;
+        color: @primary-color;
+        font-size: 12px;
+      }
+    }
+  }
+}

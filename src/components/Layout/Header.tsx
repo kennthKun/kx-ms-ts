@@ -2,23 +2,22 @@
  * @Author: 常坤 c_kunx@163.com
  * @Date: 2022-11-01 11:55:07
  * @LastEditors: kennthKun c_kunx@163.com
- * @LastEditTime: 2022-11-03 14:46:56
+ * @LastEditTime: 2022-11-04 14:06:05
  * @FilePath: /ailieyun-ms/src/components/Layout/Header.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import React, { Component } from 'react';
-import { Layout, Menu, Avatar, Breadcrumb } from 'antd';
-import { routerMenuMap } from "@/consts/breadcrumbPath"
+import { Component } from 'react';
+import { Layout } from 'antd';
 import { RightOutlined } from "@ant-design/icons"
 import styles from './Header.module.less';
+import GlobalHeaderRight from "./RightContent"
 const { Header } = Layout;
-const { SubMenu } = Menu;
 export default class HeaderCustom extends Component {
   // 退出登录
   logout = () => { };
 
   render() {
-    const { collapsed, toggle, username }: any = this.props;
+    const { toggle }: any = this.props;
     return (
       <Header className={styles.header}>
         <div className={styles.header_left}>
@@ -36,30 +35,7 @@ export default class HeaderCustom extends Component {
             </span>
           </div>
         </div>
-
-        <Menu
-          mode="horizontal"
-          className={styles.menu}
-          items={
-            [
-              {
-                label: <span>
-                  <Avatar
-                    className={styles.avatar}
-                    src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
-                  />
-                  {username}
-                </span>,
-                key: "submenu",
-                children: [{
-                  label: <div style={{ textAlign: 'center' }} onClick={this.logout}>退出</div>,
-                  key: 'submenu-item-1',
-                }],
-              }
-            ]
-          }
-        >
-        </Menu>
+        <GlobalHeaderRight />
       </Header>
     );
   }

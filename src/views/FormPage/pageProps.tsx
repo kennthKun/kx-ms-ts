@@ -23,6 +23,14 @@ export default {
   },
   "FormList": [
     {
+      $id: 14,
+      valueType: "mobile",
+      FormItemProps: {
+        label: '手机号',
+        name: 14,
+      },
+    },
+    {
       $id: 13,
       valueType: 'dateTimeRange',
       FormItemProps: {

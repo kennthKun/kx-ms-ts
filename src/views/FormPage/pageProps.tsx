@@ -23,6 +23,40 @@ export default {
   },
   "FormList": [
     {
+      valueType: 'UploadImg',
+      $id: 20,
+      FormItemProps: {
+        label: '图片上传',
+        name: 20,
+        required: false,
+      },
+    },
+    {
+      $id: 17,
+      valueType: "IDCard",
+      ocr: 'idCardLicenseV2',
+      FormItemProps: {
+        label: '身份证',
+        name: [18, 19],
+      },
+    },
+    {
+      $id: 16,
+      valueType: "DoubleUploadImg",
+      FormItemProps: {
+        label: '双图上传',
+        name: [16, 17],
+      },
+    },
+    {
+      $id: 15,
+      valueType: 'inputSearch',
+      FormItemProps: {
+        label: '搜索输入框',
+        name: 15,
+      },
+    },
+    {
       $id: 14,
       valueType: "mobile",
       FormItemProps: {

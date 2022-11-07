@@ -23,6 +23,20 @@ export default {
   },
   "FormList": [
     {
+      $id: 21,
+      valueType: "checkbox",
+      FormItemProps: {
+        label: '多选框',
+        name: 21,
+      },
+      ControlProps: {
+        options: [
+          { label: "选项一", value: "1" },
+          { label: "选项二", value: "2" }
+        ],
+      },
+    },
+    {
       valueType: 'UploadImg',
       $id: 20,
       FormItemProps: {

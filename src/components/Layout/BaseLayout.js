@@ -39,7 +39,7 @@ const BaseLayout = () => {
         <HeaderCustom collapsed={collapsed} toggle={toggle} username={name} />
         <Content
           style={{
-            margin: '16px',
+            margin: '16px 54px',
             background: '#ffffff',
             position: 'relative',
           }}

@@ -23,6 +23,46 @@ export default {
   },
   "FormList": [
     {
+      $id: 23,
+      valueType: "@group",
+      FormItemProps: {
+        grid: 1,
+      },
+      ControlProps: {
+        Content: [
+          {
+            $id: 24,
+            valueType: "table",
+          }
+        ]
+      }
+    },
+    {
+      $id: 22,
+      valueType: "@group",
+      ControlProps: {
+        Content: [
+          {
+            $id: 17,
+            valueType: "IDCard",
+            ocr: 'idCardLicenseV2',
+            FormItemProps: {
+              label: '身份证',
+              name: [18, 19],
+            },
+          },
+          {
+            $id: 14,
+            valueType: "mobile",
+            FormItemProps: {
+              label: '手机号',
+              name: 14,
+            },
+          },
+        ],
+      },
+    },
+    {
       $id: 21,
       valueType: "checkbox",
       FormItemProps: {

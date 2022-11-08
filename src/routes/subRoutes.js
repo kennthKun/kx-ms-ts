@@ -13,7 +13,7 @@ import LazyComponent from './LazyComponent';
 import PrivateRoute from './PrivateRoute';
 
 // 自动引入childRoutes目录里的子路由
-const files = require.context('./childRoutes', false, /\.js|.tsx|$/);
+const files = require.context('./childRoutes', false, /\.ts/);
 const routeList = [];
 files.keys().forEach((key) => {
   const child = files(key).default;

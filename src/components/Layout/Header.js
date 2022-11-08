@@ -13,6 +13,7 @@ import styles from './Header.module.less';
 import GlobalHeaderRight from "./RightContent"
 import { useDispatch, useSelector } from "react-redux"
 import SiderCustom from './Sider.js';
+import BreadcrumbCustom from "./Breadcrumb"
 
 const { Header } = Layout;
 const HeaderCustom = () => {
@@ -70,6 +71,12 @@ const HeaderCustom = () => {
                 <use xlinkHref={`#kx-buchongxinxi`}></use>
               </svg>
               <RightOutlined style={{ fontSize: "10px", color: "#B6C2CD", margin: "0 5px" }} />
+              <BreadcrumbCustom paths={
+                [{
+                  name: "1",
+                  path: "1"
+                }]
+              } />
             </span>
           </div>
         </div>

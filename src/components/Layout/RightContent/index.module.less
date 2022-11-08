@@ -50,14 +50,81 @@
     }
   }
 
-  .account {
+  .avatar_wapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &:hover .avatar_list {
+      display: block;
+    }
+
     .avatar {
-      margin-right: 8px;
       color: @primary-color;
       vertical-align: top;
       background: rgba(255, 255, 255, 0.85);
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+    }
+
+    .avatar_list {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      z-index: 999;
+      display: none;
+      box-sizing: border-box;
+      width: 102px;
+      min-height: 10px;
+      max-height: 40vh;
+      overflow-y: auto;
+      line-height: initial;
+      text-align: center;
+      background: #fff;
+      border: 1px solid transparent;
+      box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%), 0 1px 2px 0 rgb(25 15 15 / 7%), 0 0 1px 0 rgb(0 0 0 / 8%);
+
+      .avatar_item_list {
+        width: 102px;
+        height: 40px;
+        padding: 0 10px;
+
+        &:hover {
+          background: rgba(36, 124, 255, 0.05);
+
+          div {
+            color: #386CF6;
+
+            span[role="img"] {
+              color: #386CF6;
+            }
+          }
+        }
+
+        &:first-child div {
+          border-top: none;
+        }
+
+        div {
+          border-top: 1px solid #EaEFF7;
+          line-height: 40px;
+          color: #324458;
+          font-weight: 400;
+          display: flex;
+          justify-content: space-between;
+          cursor: pointer;
+
+          span[role="img"] {
+            font-size: 16px;
+            line-height: 40px;
+            color: #324458;
+          }
+        }
+      }
     }
   }
+
 }
 
 

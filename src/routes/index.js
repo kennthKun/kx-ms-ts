@@ -15,7 +15,7 @@ import LazyComponent from './LazyComponent';
 const RoutesData = [
   {
     path: '/',
-    redirect: '/workBench',
+    redirect: '/workBench/page',
   },
   {
     path: '/workBench',

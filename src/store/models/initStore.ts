@@ -8,9 +8,7 @@
  */
 import request from '@/utils/request';
 import {
-  getCookie,
   getLocaleStorage,
-  getSessionStorage,
   setLocaleStorage,
   setSessionStorage,
 } from '@/utils/cookie';

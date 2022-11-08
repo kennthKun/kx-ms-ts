@@ -167,3 +167,10 @@ export const postVehicleBrandInfoList = async (data: any) =>
     method: 'post',
     data: { data: {} },
   });
+
+export const shareToken = async (key: string) => {
+  return request(`${API.auth}/oauth/share/login?token=${key}`, {
+    method: 'get',
+  })
+
+}

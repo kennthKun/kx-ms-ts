@@ -11,10 +11,6 @@ import './kx.less'
 import "./iconfont.js"
 class App extends Component {
   componentDidCatch() { }
-
-  componentDidMount(): void {
-    console.log(window.location)
-  }
   render() {
     return (
       <ConfigProvider locale={zhCn} >

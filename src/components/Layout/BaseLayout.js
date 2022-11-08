@@ -11,6 +11,7 @@ import Routes from '@/routes/subRoutes';
 import HeaderCustom from './Header.js';
 const { Content } = Layout;
 
+
 const BaseLayout = () => {
 
   return (

@@ -19,9 +19,10 @@ const getAppFun = async () => {
 
 export default async (callback: () => void) => {
   const shareKey = getUrlParam('share')
-  console.log(shareKey, 'shareKey')
-  console.log(window.location.href)
-  await getAppFun();
+
+  if (window.location.pathname !== loginPath) {
+    await getAppFun();
+  }
   if (shareKey) {
     const key = window.atob(shareKey)
     const res: any = await shareToken(key)

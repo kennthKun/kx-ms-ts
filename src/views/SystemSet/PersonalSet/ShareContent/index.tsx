@@ -1,6 +1,6 @@
 import { Button } from "antd"
 import { InputNumber } from "antd"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import styles from "../index.module.less"
 import copy from 'copy-to-clipboard';
@@ -8,9 +8,12 @@ import { message } from "antd"
 
 const ShareContent = () => {
 
-  const [hours, setHours] = useState()
+  const [hours, setHours] = useState(2)
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    console.log(11)
+  }, [])
   const getShareLink = async () => {
     if (!hours) {
       return message.error("请输入正确的过期时间");
@@ -30,7 +33,7 @@ const ShareContent = () => {
   return <div>
     <div className={styles.share_wapper}>
       <span>链接有效期:</span>
-      <InputNumber onChange={setHours} min={0} addonAfter="小时" style={{ width: "130px", margin: "0 10px" }} />
+      <InputNumber onChange={setHours} value={hours} min={0} addonAfter="小时" style={{ width: "130px", margin: "0 10px" }} />
       <Button type="primary" onClick={getShareLink}>生成分享链接</Button>
     </div>
   </div>

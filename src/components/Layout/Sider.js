@@ -6,33 +6,24 @@
  * @FilePath: /ailieyun-ms/src/components/Layout/Sider.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import styles from './Sider.module.less';
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { Link } from 'react-router-dom';
 
-const SiderCustom = ({collapsed}:any) => {
-  const dispatch:any = useDispatch();
-  const { ResourceList }:any = useSelector(({ initStore }:any) => initStore);
+const SiderCustom = ({ collapsed }) => {
+  const { ResourceList } = useSelector(({ initStore }) => initStore);
 
-  const getResourceList = async () => {
-    const res = await dispatch.initStore?.getResourceList?.();
-    dispatch.initStore.updateState({
-      ResourceList: res
-    })
-  }
-
-
-  useEffect(() => {
-    getResourceList()
-  }, [])
-
-  const TitleTwo = ({item}:any) => {
+  const TitleTwo = ({ item }) => {
     return <div className={styles.title_2}>
       <Link to={item.path || '/404'} className={styles.link}>
         <span className={styles.menu_item_icon}>
           <svg className="icon" aria-hidden="true">
-            <use xlinkHref={`#${item.icon}`}></use>
+            {item?.icon?.indexOf('kx-') >= 0 ? (
+              <use xlinkHref={`#${item.icon}`}></use>
+            ) : (
+              <use xlinkHref={`#kx-caidanguanli`}></use>
+            )}
           </svg>
         </span>
         {item.name}
@@ -40,18 +31,18 @@ const SiderCustom = ({collapsed}:any) => {
     </div>
   }
 
-  return <div className={styles.sider} style={{left : collapsed ? "0":"-260px"}}>
+  return <div className={styles.sider} style={{ left: collapsed ? "0" : "-260px" }}>
     <div className={styles.sider_out_wapper}>
       <div className={styles.sider_inener_wapper}>
         {
-          ResourceList.map((item:any,index:number) => {
+          ResourceList.map((item, index) => {
             return <Fragment key={item.resourceId} >
               <div className={styles.title_1}>
                 {item.name}
               </div>
               <div className={styles.title_2_wapper}>
                 {
-                  item.routes.map((item2:any)=>{
+                  item.routes.map((item2) => {
                     return <Fragment key={item2.resourceId}>
                       <TitleTwo item={item2} />
                     </Fragment>
@@ -59,7 +50,7 @@ const SiderCustom = ({collapsed}:any) => {
                 }
               </div>
               {
-                index % 2 === 1 ? <div className={styles.line}></div>:null
+                index % 2 === 1 ? <div className={styles.line}></div> : null
               }
             </Fragment>
           })

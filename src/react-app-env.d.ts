@@ -89,4 +89,8 @@ declare module 'lodash'
 declare module 'react-redux'
 declare module 'kx_component'
 declare module '@ant-design/icons'
+declare module 'styled-components'
+declare module 'moment'
+declare const systemName
+
 // declare const API_ENV: 'test' | 'dev' | 'pre' | 'prod';

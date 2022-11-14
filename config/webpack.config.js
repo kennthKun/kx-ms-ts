@@ -30,6 +30,7 @@ const createEnvironmentHash = require('./webpack/persistentCache/createEnvironme
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
+const appPackageJson = require(paths.appPackageJson);
 
 const reactRefreshRuntimeEntry = require.resolve('react-refresh/runtime');
 const reactRefreshWebpackPluginRuntimeEntry = require.resolve(
@@ -58,6 +59,7 @@ const imageInlineSizeLimit = parseInt(
 
 // Check if TypeScript is setup
 const useTypeScript = fs.existsSync(paths.appTsConfig);
+const systemName = appPackageJson.name;
 
 // Check if Tailwind config exists
 const useTailwind = fs.existsSync(
@@ -66,6 +68,7 @@ const useTailwind = fs.existsSync(
 
 // Get the path to the uncompiled service worker (if it exists).
 const swSrc = paths.swSrc;
+
 
 // style files regexes
 const cssRegex = /\.css$/;
@@ -545,31 +548,65 @@ module.exports = function (webpackEnv) {
             {
               test: lessRegex,
               exclude: lessModuleRegex,
-              use: getStyleLoaders(
+              use: [
+                ...getStyleLoaders(
+                  {
+                    importLoaders: 2,
+                    sourceMap: isEnvProduction
+                      ? shouldUseSourceMap
+                      : isEnvDevelopment,
+                  },
+                ),
                 {
-                  importLoaders: 3,
-                  sourceMap: isEnvProduction
-                    ? shouldUseSourceMap
-                    : isEnvDevelopment,
+                  loader: require.resolve('less-loader'),
+                  options: {
+                    lessOptions: {
+                      javascriptEnabled: true,
+                      modifyVars: {
+                        '@ant-prefix': systemName,
+                        "@primary-color": "#386CF6",
+                        "@card-shadow": "0 1px 2px -2px #00000029,   0 3px 6px #0000001f,0 5px 12px 4px #00000017"
+                      },
+                    },
+                    sourceMap: isEnvProduction
+                      ? shouldUseSourceMap
+                      : isEnvDevelopment,
+                  },
                 },
-                'less-loader'
-              ),
+              ],
               sideEffects: true,
             },
             {
               test: lessModuleRegex,
-              use: getStyleLoaders(
+              use: [
+                ...getStyleLoaders(
+                  {
+                    importLoaders: 2,
+                    sourceMap: isEnvProduction
+                      ? shouldUseSourceMap
+                      : isEnvDevelopment,
+                    modules: {
+                      getLocalIdent: getCSSModuleLocalIdent,
+                    },
+                  },
+                ),
                 {
-                  importLoaders: 3,
-                  sourceMap: isEnvProduction
-                    ? shouldUseSourceMap
-                    : isEnvDevelopment,
-                  modules: {
-                    getLocalIdent: getCSSModuleLocalIdent,
+                  loader: require.resolve('less-loader'),
+                  options: {
+                    lessOptions: {
+                      javascriptEnabled: true,
+                      modifyVars: {
+                        '@ant-prefix': systemName,
+                        "@primary-color": "#386CF6",
+                        "@card-shadow": "0 1px 2px -2px #00000029,   0 3px 6px #0000001f,0 5px 12px 4px #00000017"
+                      },
+                    },
+                    sourceMap: isEnvProduction
+                      ? shouldUseSourceMap
+                      : isEnvDevelopment,
                   },
                 },
-                'less-loader'
-              ),
+              ],
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
@@ -637,7 +674,10 @@ module.exports = function (webpackEnv) {
       // It is absolutely essential that NODE_ENV is set to production
       // during a production build.
       // Otherwise React will be compiled in the very slow development mode.
-      new webpack.DefinePlugin(env.stringified),
+      new webpack.DefinePlugin({
+        ...env.stringified,
+        systemName: JSON.stringify(systemName),
+      }),
       // Experimental hot reloading for React .
       // https://github.com/facebook/react/tree/main/packages/react-refresh
       isEnvDevelopment &&

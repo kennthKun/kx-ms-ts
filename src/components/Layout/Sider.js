@@ -15,20 +15,36 @@ const SiderCustom = ({ collapsed }) => {
   const { ResourceList } = useSelector(({ initialState }) => initialState);
 
   const TitleTwo = ({ item }) => {
-    return <div className={styles.title_2}>
-      <Link to={item.path || '/404'} className={styles.link}>
-        <span className={styles.menu_item_icon}>
-          <svg className="icon" aria-hidden="true">
-            {item?.icon?.indexOf('kx-') >= 0 ? (
-              <use xlinkHref={`#${item.icon}`}></use>
-            ) : (
-              <use xlinkHref={`#kx-caidanguanli`}></use>
-            )}
-          </svg>
-        </span>
-        {item.name}
-      </Link>
-    </div>
+    return <>
+      {
+        item?.routes?.length ? <div className={styles.title_2_2}>
+          {item.name}
+          <div className={styles.title_2_wapper}>
+            {
+              item.routes.map((item2) => {
+                return <Fragment key={item2.resourceId}>
+                  <TitleTwo item={item2} />
+                </Fragment>
+              })
+            }
+          </div>
+
+        </div> : <div className={styles.title_2}>
+          <Link to={item.path || '/404'} className={styles.link}>
+            <span className={styles.menu_item_icon}>
+              <svg className="icon" aria-hidden="true">
+                {item?.icon?.indexOf('kx-') >= 0 ? (
+                  <use xlinkHref={`#${item.icon}`}></use>
+                ) : (
+                  <use xlinkHref={`#kx-caidanguanli`}></use>
+                )}
+              </svg>
+            </span>
+            {item.name}
+          </Link>
+        </div>
+      }
+    </>
   }
 
   return <div className={styles.sider} style={{ left: collapsed ? "0" : "-260px" }}>

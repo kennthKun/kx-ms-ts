@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Breadcrumb } from 'antd';
+import { RightOutlined } from "@ant-design/icons"
 import { Link } from 'react-router-dom';
-import getBreadcrumb from './getBreadcrumb';
+import { getBreadcrumb, getIconMenu } from './getBreadcrumb';
 
 export default class BreadcrumbCustom extends Component {
   Breadcrumbs() {
@@ -18,9 +19,15 @@ export default class BreadcrumbCustom extends Component {
 
   render() {
     return (
-      <div>
-        <Breadcrumb style={{ margin: '12px 0' }}>{this.Breadcrumbs()}</Breadcrumb>
-      </div>
+      <>
+        <svg className="icon" aria-hidden="true">
+          <use xlinkHref={`#${getIconMenu(this.props.ResourceList)}`}></use>
+        </svg>
+        <RightOutlined style={{ fontSize: "10px", color: "#B6C2CD", margin: "0 5px" }} />
+        <div>
+          <Breadcrumb style={{ margin: '12px 0' }}>{this.Breadcrumbs()}</Breadcrumb>
+        </div>
+      </>
     );
   }
 }

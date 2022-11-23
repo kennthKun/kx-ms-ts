@@ -12,7 +12,7 @@ import { useSelector } from "react-redux"
 import { Link } from 'react-router-dom';
 
 const SiderCustom = ({ collapsed }) => {
-  const { ResourceList } = useSelector(({ initStore }) => initStore);
+  const { ResourceList } = useSelector(({ initialState }) => initialState);
 
   const TitleTwo = ({ item }) => {
     return <div className={styles.title_2}>

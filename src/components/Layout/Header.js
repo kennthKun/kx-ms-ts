@@ -8,7 +8,6 @@
  */
 import { useRef, useEffect } from 'react';
 import { Layout } from 'antd';
-import { RightOutlined } from "@ant-design/icons"
 import styles from './Header.module.less';
 import GlobalHeaderRight from "./RightContent"
 import { useDispatch, useSelector } from "react-redux"
@@ -19,18 +18,18 @@ const { Header } = Layout;
 const HeaderCustom = () => {
 
   const cRef = useRef();
-  const { initStore } = useDispatch();
-  const { collapsed } = useSelector(({ initStore }) => initStore);
+  const { initialState } = useDispatch();
+  const { collapsed, ResourceList } = useSelector(({ initialState }) => initialState);
 
   const toggle = (e) => {
     if (!cRef.current) {
       return;
     }
     if (!cRef.current?.contains(e.target) && cRef.current !== e.target) {
-      initStore.updateState({ collapsed: false })
+      initialState.updateState({ collapsed: false })
       return;
     }
-    initStore.updateState({ collapsed: !collapsed })
+    initialState.updateState({ collapsed: !collapsed })
   };
 
   useEffect(() => {
@@ -41,11 +40,11 @@ const HeaderCustom = () => {
   }, []);
 
   const getInit = async () => {
-    const currentUser = await initStore?.fetchUserInfo?.();
-    const TenantList = await initStore?.getTenantListFun?.();
-    const RoleList = await initStore?.getRoleListFun?.();
-    const ResourceList = await initStore?.getResourceList?.();
-    initStore.updateState({ currentUser, TenantList, RoleList, ResourceList })
+    const currentUser = await initialState?.fetchUserInfo?.();
+    const TenantList = await initialState?.getTenantListFun?.();
+    const RoleList = await initialState?.getRoleListFun?.();
+    const ResourceList = await initialState?.getResourceList?.();
+    initialState.updateState({ currentUser, TenantList, RoleList, ResourceList })
   }
   useEffect(() => {
     getInit()
@@ -55,7 +54,7 @@ const HeaderCustom = () => {
     <>
       <SiderCustom collapsed={collapsed} />
       <div className={styles.header_mat}></div>
-      <Header className={styles.header} style={{ position: 'fixed', zIndex: 999, width: '100%' }}>
+      <Header className={styles.header} style={{ position: 'fixed', zIndex: 999, width: '100%', minWidth: "950px" }}>
         <div className={styles.header_left}>
           <span className={styles.menu_item_icon}>
             <svg className="icon" aria-hidden="true" ref={cRef} onClick={(e) => {
@@ -67,16 +66,7 @@ const HeaderCustom = () => {
           </span>
           <div className={styles.breadcrumb_wapper}>
             <span className={styles.breadcrumb_icon}>
-              <svg className="icon" aria-hidden="true">
-                <use xlinkHref={`#kx-buchongxinxi`}></use>
-              </svg>
-              <RightOutlined style={{ fontSize: "10px", color: "#B6C2CD", margin: "0 5px" }} />
-              <BreadcrumbCustom paths={
-                [{
-                  name: "1",
-                  path: "1"
-                }]
-              } />
+              <BreadcrumbCustom ResourceList={ResourceList} />
             </span>
           </div>
         </div>

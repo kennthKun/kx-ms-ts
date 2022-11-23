@@ -10,7 +10,7 @@ import Company from './company';
 export type SiderTheme = 'light' | 'dark';
 
 const GlobalHeaderRight: React.FC = () => {
-  const { RoleList, TenantList } = useSelector(({ initStore }: any) => initStore);
+  const { RoleList, TenantList } = useSelector(({ initialState }: any) => initialState);
   const [list, setList] = useState<object[]>([]);
   const [activited, setActivited] = useState<any>(null);
 

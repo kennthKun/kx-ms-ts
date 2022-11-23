@@ -60,12 +60,12 @@ const appStore = {
       const res: any = await getApp();
       if (res?.code === 0) {
         if (!res?.data?.tenantId) {
-          // window.location.href = HOMELINK || '';
           return;
         }
         setSessionStorage('APPID', res?.data?.appId);
         setLocaleStorage('TENANTID', res?.data?.tenantId);
       }
+      return res
     },
 
     async getTenantListFun() {

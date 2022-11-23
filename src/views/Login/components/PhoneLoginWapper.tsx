@@ -3,8 +3,8 @@ import { Col, Form, Input, Row, Select, Button, Checkbox, message } from 'antd';
 import { clearCookie, setCookie } from '@/utils/cookie';
 import { getFakeCaptcha, postLogin } from '@/services/login';
 import { useEffect, useState } from 'react';
-import {API_ENV} from "@/const/env"
-import {useDispatch} from "react-redux"
+import { API_ENV } from "@/const/env"
+import { useDispatch } from "react-redux"
 import { Privacy } from '../components/agreementText';
 
 const FormItem = Form.Item;
@@ -17,10 +17,10 @@ const PhoneLoginWapper = ({ seeAgreement, setType, setTenantList }: any) => {
   const [codeIsError, setCodeIsError] = useState<boolean>(false);
   const [verifyButtonTime, setverifyButtonTime] = useState<number>(CODE_TIME_NUM);
   const [codeBtnState, setCodeBtnState] = useState<boolean>(false);
-  
+
   const {
-    initStore
-  }:any = useDispatch();
+    initialState
+  }: any = useDispatch();
 
   useEffect(() => {
     clearCookie('AILIEYUN_ACCESS_TOKEN');
@@ -57,7 +57,7 @@ const PhoneLoginWapper = ({ seeAgreement, setType, setTenantList }: any) => {
         const result: any = await getFakeCaptcha(mobile);
         console.log(result)
         if (result) {
-          ['dev','test'].includes(API_ENV)
+          ['dev', 'test'].includes(API_ENV)
             ? message.success(`验证码为${result?.data}`)
             : message.success('获取验证码成功！');
         }
@@ -92,14 +92,14 @@ const PhoneLoginWapper = ({ seeAgreement, setType, setTenantList }: any) => {
       } else {
         setCookie('AILIEYUN_ACCESS_TOKEN', `${res.token_type} ${res.access_token}`, 7);
 
-        const TenantListData = await initStore?.getTenantListFun?.();
+        const TenantListData = await initialState?.getTenantListFun?.();
         console.log(TenantListData)
         if (TenantListData?.length > 1) {
           setType(2);
           setTenantList(TenantListData);
         } else {
-          await initStore?.fetchUserInfo?.();
-          await initStore?.getRoleListFun?.();
+          await initialState?.fetchUserInfo?.();
+          await initialState?.getRoleListFun?.();
           message.success('登录成功！');
           window.location.href = '/';
         }
@@ -155,7 +155,7 @@ const PhoneLoginWapper = ({ seeAgreement, setType, setTenantList }: any) => {
         </Button>
       </Form>
       <div className={styles.agreement}>
-        <Checkbox checked={checked} onChange={(e:any) => setchecked(e.target.checked)}>
+        <Checkbox checked={checked} onChange={(e: any) => setchecked(e.target.checked)}>
           登录即同意
         </Checkbox>
         <a onClick={() => seeAgreement(Privacy)}>《用户协议》</a>和

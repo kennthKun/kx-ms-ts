@@ -1,18 +1,15 @@
 import { SetIcon, OutLoginIcon } from "./Icon"
-import { Avatar, Menu, Spin } from 'antd';
-import type { ItemType } from 'antd/lib/menu/hooks/useItems';
+import { Avatar } from 'antd';
 // import { stringify } from 'querystring';
 import {
   clearCookie,
   removeLocaleStorage,
   removeSessionStorage,
-  setLocaleStorage,
 } from '@/utils/cookie';
-import type { MenuInfo } from 'rc-menu/lib/interface';
-import React, { useCallback } from 'react';
+import React from 'react';
 import styles from './index.module.less';
-import { Button } from 'antd';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 // import styles from './index.less';
 
@@ -44,6 +41,8 @@ const loginOut = async ({ history }: any) => {
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   const history = useHistory();
+  const { currentUser } = useSelector(({ initialState }: any) => initialState);
+
   const data = [{
     title: "个人设置",
     icon: <SetIcon />,
@@ -63,7 +62,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
         className={styles.avatar}
         src={defaultAvatar}
       />
-      <span style={{ paddingLeft: "10px" }}>常坤</span>
+      <span style={{ paddingLeft: "10px" }}>{currentUser?.account?.name}</span>
       <div className={styles.avatar_list}>
         {
           data.map((item) => (

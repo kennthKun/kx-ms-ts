@@ -81,9 +81,12 @@
   },
   "scripts": {
     "start": "cross-env API_ENV=dev node scripts/start.js",
+    "start:dev2": "cross-env API_ENV=dev2 node scripts/start.js",
     "start:test": "cross-env API_ENV=test node scripts/start.js",
+    "start:test2": "cross-env API_ENV=test2 node scripts/start.js",
     "start:prod": "cross-env API_ENV=prod node scripts/start.js",
     "build:dev": "cross-env API_ENV=dev node scripts/build.js",
+    "build:dev2": "cross-env API_ENV=dev2 node scripts/build.js",
     "build:test": "cross-env API_ENV=test node scripts/build.js",
     "build:pre": "cross-env API_ENV=pre node scripts/build.js",
     "build": "cross-env API_ENV=prod node scripts/build.js",

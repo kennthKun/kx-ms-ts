@@ -16,8 +16,8 @@ axios.interceptors.request.use(
   (config: any) => {
 
     const headers = {
+      ...getHeaders(),
       ...config.headers,
-      ...getHeaders()
     }
     config.headers = config.url.indexOf('restapi.amap.com') === -1 ? headers : {}
     return config;

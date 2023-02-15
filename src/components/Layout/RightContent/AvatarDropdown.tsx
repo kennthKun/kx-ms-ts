@@ -1,5 +1,5 @@
 import { SetIcon, OutLoginIcon } from "./Icon"
-import { Avatar } from 'antd';
+import { Avatar } from 'kx_component';
 // import { stringify } from 'querystring';
 import {
   clearCookie,
@@ -18,7 +18,7 @@ export type GlobalHeaderRightProps = {
 };
 
 const defaultAvatar =
-  'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png';
+  'http://lieyuntong-file.oss-cn-beijing.aliyuncs.com/517c4750-c4c2-4a2b-beed-2ce444f9ac00.jpg';
 
 
 const loginOut = async ({ history }: any) => {
@@ -27,7 +27,7 @@ const loginOut = async ({ history }: any) => {
   /** 此方法会跳转到 redirect 参数所在的位置 */
   const redirect = urlParams.get('redirect');
   clearCookie('AILIEYUN_ACCESS_TOKEN');
-  removeSessionStorage('APPID');
+  removeLocaleStorage('APPID');
   removeLocaleStorage('TENANTID');
   removeLocaleStorage('ROLE_DATA');
   if (window.location.pathname !== '/login' && !redirect) {
@@ -62,7 +62,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
         className={styles.avatar}
         src={defaultAvatar}
       />
-      <span style={{ paddingLeft: "10px" }}>{currentUser?.account?.name}</span>
+      <span style={{ paddingLeft: "10px" }}>{currentUser?.account?.name || currentUser?.name}</span>
       <div className={styles.avatar_list}>
         {
           data.map((item) => (

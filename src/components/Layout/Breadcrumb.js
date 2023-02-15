@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb } from 'kx_component';
 import { RightOutlined } from "@ant-design/icons"
 import { Link } from 'react-router-dom';
 import { getBreadcrumb, getIconMenu } from './getBreadcrumb';
@@ -20,7 +20,7 @@ export default class BreadcrumbCustom extends Component {
   render() {
     return (
       <>
-        <svg className="icon" aria-hidden="true">
+        <svg style={{ width: "22px", height: "22px" }} className="icon" aria-hidden="true">
           <use xlinkHref={`#${getIconMenu(this.props.ResourceList)}`}></use>
         </svg>
         <RightOutlined style={{ fontSize: "10px", color: "#B6C2CD", margin: "0 5px" }} />

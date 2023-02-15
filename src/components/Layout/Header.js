@@ -6,8 +6,8 @@
  * @FilePath: /ailieyun-ms/src/components/Layout/Header.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import { useRef, useEffect } from 'react';
-import { Layout } from 'antd';
+import { useRef, useEffect, useState } from 'react';
+import { Layout } from 'kx_component';
 import styles from './Header.module.less';
 import GlobalHeaderRight from "./RightContent"
 import { useDispatch, useSelector } from "react-redux"
@@ -19,17 +19,18 @@ const HeaderCustom = () => {
 
   const cRef = useRef();
   const { initialState } = useDispatch();
-  const { collapsed, ResourceList } = useSelector(({ initialState }) => initialState);
-
+  const { ResourceList } = useSelector(({ initialState }) => initialState);
+  const [collapsed, setcollapsed] = useState(false)
   const toggle = (e) => {
     if (!cRef.current) {
       return;
     }
     if (!cRef.current?.contains(e.target) && cRef.current !== e.target) {
       initialState.updateState({ collapsed: false })
+      setcollapsed(false)
       return;
     }
-    initialState.updateState({ collapsed: !collapsed })
+    setcollapsed(!collapsed)
   };
 
   useEffect(() => {
@@ -39,31 +40,20 @@ const HeaderCustom = () => {
     };
   }, []);
 
-  const getInit = async () => {
-    const currentUser = await initialState?.fetchUserInfo?.();
-    const TenantList = await initialState?.getTenantListFun?.();
-    const RoleList = await initialState?.getRoleListFun?.();
-    const ResourceList = await initialState?.getResourceList?.();
-    initialState.updateState({ currentUser, TenantList, RoleList, ResourceList })
-  }
-  useEffect(() => {
-    getInit()
-  }, [])
-
   return (
     <>
       <SiderCustom collapsed={collapsed} />
       <div className={styles.header_mat}></div>
       <Header className={styles.header} style={{ position: 'fixed', zIndex: 999, width: '100%', minWidth: "950px" }}>
         <div className={styles.header_left}>
-          <span className={styles.menu_item_icon}>
+          {ResourceList?.length > 0 ? <span className={styles.menu_item_icon}>
             <svg className="icon" aria-hidden="true" ref={cRef} onClick={(e) => {
               e.stopPropagation()
               toggle(e)
             }}>
-              <use xlinkHref={`#kx-qiehuanzhizidingyicaidan`}></use>
+              <use xlinkHref={`#kx-tubiaozhizuomoban`}></use>
             </svg>
-          </span>
+          </span> : null}
           <div className={styles.breadcrumb_wapper}>
             <span className={styles.breadcrumb_icon}>
               <BreadcrumbCustom ResourceList={ResourceList} />

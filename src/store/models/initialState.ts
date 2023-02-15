@@ -1,12 +1,3 @@
-/*
- * @Author: 常坤 c_kunx@163.com
- * @Date: 2022-11-01 16:05:02
- * @LastEditors: kennthKun c_kunx@163.com
- * @LastEditTime: 2022-11-04 15:04:01
- * @FilePath: /ailieyun-ms/src/store/models/init.ts
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
-import request from '@/utils/request';
 import {
   getLocaleStorage,
   setLocaleStorage,
@@ -15,10 +6,11 @@ import {
 import { isNil } from 'lodash';
 import { getRoleList, getTenantList, getUserInfo } from '@/services/login';
 import { getApp } from '@/services/common/api';
-import { HOMELINK } from '@/const/env';
+import { DeepKeySearchObjDel } from "@/utils"
 import { getResourceListApi } from '@/services/common/sysResource';
+import { SYSYTYPE } from '@/const';
 
-const appStore = {
+const initialState = {
   state: {
     collapsed: false,
     TenantList: [],
@@ -52,6 +44,9 @@ const appStore = {
         if (status === 0) {
           setLocaleStorage('ROLE_DATA', JSON.stringify(res?.data?.[0] || {}));
         }
+        const RoleList = res?.data || [];
+        const { updateState } = this as any
+        updateState({ RoleList })
         return res?.data;
       }
     },
@@ -62,10 +57,26 @@ const appStore = {
         if (!res?.data?.tenantId) {
           return;
         }
-        setSessionStorage('APPID', res?.data?.appId);
-        setLocaleStorage('TENANTID', res?.data?.tenantId);
+        let tenantId = res?.data?.tenantId
+        let type = res?.data?.type
+        if (getLocaleStorage('TENANTID')) {
+          tenantId = getLocaleStorage('TENANTID')
+        }
+        if (res?.data?.appId === tenantId) {
+          // 平台端
+          setLocaleStorage('SYSTYPE', SYSYTYPE.PLATFORM);
+        } else {
+          // 货主端
+          setLocaleStorage('SYSTYPE', SYSYTYPE.CUSTOMER);
+        }
+        setLocaleStorage('APPID', res?.data?.appId);
+        setLocaleStorage('TENANTTYPE', type)
+        if (!getLocaleStorage("TENANTID")) {
+          setLocaleStorage('TENANTID', tenantId);
+        }
+        return res
       }
-      return res
+      return false
     },
 
     async getTenantListFun() {
@@ -73,39 +84,44 @@ const appStore = {
       setLocaleStorage('TENANTIDLIST', JSON.stringify(res?.data));
       if (res?.code === 0 && res?.data) {
         let status = 0;
+        const TENANTID = getLocaleStorage('TENANTID');
         for (const i of res?.data) {
-          const TENANTID = getLocaleStorage('TENANTID');
           if (i.tenantId === TENANTID && !isNil(TENANTID)) {
             status = 1;
             break;
           }
         }
-        if (res?.data?.length === 1 && status === 0) {
+        if (res?.data?.length === 1 && status === 0 && !TENANTID) {
           setLocaleStorage('TENANTID', res?.data[0]?.tenantId);
         }
       }
-      return res?.data;
+      const TenantList = res?.data || [];
+      const { updateState } = this as any
+      updateState({ TenantList })
+      return TenantList
     },
 
     async getResourceList() {
       try {
         const res: any = await getResourceListApi();
-        return res?.data || [];
+        const ResourceList = res?.data || [];
+        const { updateState } = this as any
+        const { arr, keyArr }: any = DeepKeySearchObjDel(ResourceList, 'routes', 'type', 3)
+        setSessionStorage("BUTTON_ROLE", JSON.stringify(keyArr))
+        updateState({ ResourceList: arr })
       } catch (error) {
       }
-      return [];
     },
 
     async fetchUserInfo() {
       try {
         const msg: any = await getUserInfo();
-        return msg.data;
-      } catch (error) {
-
-      }
-      return {};
+        const currentUser = msg.data;
+        const { updateState } = this as any
+        updateState({ currentUser })
+      } catch (error) { }
     }
   },
 };
 
-export default appStore;
+export default initialState;

@@ -1,11 +1,10 @@
 import styles from '../index.module.less';
-import { Col, Form, Input, Row, Select, Button, Checkbox, message } from 'antd';
+import { Col, Form, Input, Row, Select, Button, Checkbox, message } from 'kx_component';
 import { clearCookie, setCookie } from '@/utils/cookie';
 import { getFakeCaptcha, postLogin } from '@/services/login';
 import { useEffect, useState } from 'react';
 import { API_ENV } from "@/const/env"
 import { useDispatch } from "react-redux"
-import { Privacy } from '../components/agreementText';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -55,11 +54,14 @@ const PhoneLoginWapper = ({ seeAgreement, setType, setTenantList }: any) => {
     setTimeout(async () => {
       if (CODE_TIME_NUM === verifyButtonTime) {
         const result: any = await getFakeCaptcha(mobile);
-        console.log(result)
-        if (result) {
-          ['dev', 'test'].includes(API_ENV)
+        if (result.code === 0) {
+          ['dev', 'test', 'dev2', 'test2'].includes(API_ENV)
             ? message.success(`验证码为${result?.data}`)
             : message.success('获取验证码成功！');
+        } else {
+          setCodeBtnState(false);
+          setverifyButtonTime(CODE_TIME_NUM);
+          return;
         }
       }
       if (verifyButtonTime === 0) {
@@ -93,13 +95,16 @@ const PhoneLoginWapper = ({ seeAgreement, setType, setTenantList }: any) => {
         setCookie('AILIEYUN_ACCESS_TOKEN', `${res.token_type} ${res.access_token}`, 7);
 
         const TenantListData = await initialState?.getTenantListFun?.();
-        console.log(TenantListData)
+        // if (TenantListData?.length <= 0) {
+        //   setType(3);
+        //   return
+        // }
         if (TenantListData?.length > 1) {
           setType(2);
           setTenantList(TenantListData);
         } else {
-          await initialState?.fetchUserInfo?.();
           await initialState?.getRoleListFun?.();
+          await initialState?.fetchUserInfo?.();
           message.success('登录成功！');
           window.location.href = '/';
         }
@@ -158,8 +163,8 @@ const PhoneLoginWapper = ({ seeAgreement, setType, setTenantList }: any) => {
         <Checkbox checked={checked} onChange={(e: any) => setchecked(e.target.checked)}>
           登录即同意
         </Checkbox>
-        <a onClick={() => seeAgreement(Privacy)}>《用户协议》</a>和
-        <a onClick={() => seeAgreement(Privacy)}>《隐私政策》</a>
+        <a onClick={() => seeAgreement('/user/protocol')}>《用户协议》</a>和
+        <a onClick={() => seeAgreement('/privacy/policy')}>《隐私政策》</a>
       </div>
     </>
   );

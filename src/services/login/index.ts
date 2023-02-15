@@ -14,7 +14,7 @@ export async function getFakeCaptcha(phone?: string) {
 export async function postLogin({ phone, principal }: any) {
   return request(
     `${API.auth}/oauth/login?grant_type=mobile&tenant_id=${getLocaleStorage('TENANTID') || DEFAULT_ID.TENANT_ID
-    }&client_id=${getSessionStorage('APPID') || DEFAULT_ID.APPID
+    }&client_id=${getLocaleStorage('APPID') || DEFAULT_ID.APPID
     }&phone=${phone}&principal=${principal}`,
     {
       method: 'POST',

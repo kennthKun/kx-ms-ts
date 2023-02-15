@@ -6,84 +6,67 @@
  * @FilePath: /kx-ms-ts/src/views/Login/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import type { ReactNode } from 'react';
 import { useState, useEffect } from 'react';
 import { clearCookie, removeLocaleStorage } from '@/utils/cookie';
 import PhoneLoginWapper from './components/PhoneLoginWapper';
-import Agreement from './components/agreement';
+
 import SelectTenant from './components/selectTenant';
 import styles from './index.module.less';
-import { useDispatch, useSelector } from "react-redux"
-
-interface agreemet {
-  title: string;
-  content: ReactNode;
-}
-
-const Login = () => {
-  const {
-    initialState
-  }: any = useDispatch();
-  const [visible, setVisible] = useState(false);
+import { useDispatch } from 'react-redux';
+const Login = ({ history }: any) => {
+  const { initialState }: any = useDispatch();
+  const [Logo, setLogo] = useState('');
   const [type, setType] = useState(1);
   const [tenantList, setTenantList] = useState<any[]>([]);
-  const [agreementContent, setAgreementContent] = useState<agreemet | null>();
-  const seeAgreement = (data: any) => {
-    setAgreementContent(data);
-    setVisible(true);
+  const seeAgreement = (url: string) => {
+    window.open(`${window.origin}${url}`);
   };
-
-
-  const getAppFun = async () => {
-    const res = await initialState.getAppFun()
-    console.log(res?.data?.icon)
-  }
+  const GetAppFun = async () => {
+    const res = await initialState.getAppFun();
+    if (res) {
+      setLogo(res?.data?.icon);
+    }
+  };
   useEffect(() => {
     clearCookie('AILIEYUN_ACCESS_TOKEN');
     removeLocaleStorage('ROLE_DATA');
-    getAppFun()
+    removeLocaleStorage('TENANTID');
+    removeLocaleStorage('ROLE_DATA');
+    GetAppFun();
   }, []);
 
-  return <>
-    <div className={styles.LoginPage}>
-      <Agreement {...agreementContent} visible={visible} setVisible={setVisible} />
-      <img
-        className={styles.logo}
-        alt="logo"
-        src="http://ailieyun-file.oss-cn-beijing.aliyuncs.com/c534d314-f00c-4660-bc16-0025b406a42b.png"
-      />
+  return (
+    <>
+      <div className={styles.LoginPage}>
+        <img className={styles.logo} alt='logo' src={Logo} />
+        <div className={styles.login_inner_wapper}>
+          {type === 1 ? (
+            <>
+              <div className={styles.title_box}>登录</div>
+              <div className={styles.login_form}>
+                <div className={styles.header}>
+                  <div className={`${styles.type_item} ${styles.type_item_activity}`}>手机登录</div>
+                  {/* <div className={styles.type_item}>账号登录</div> */}
+                </div>
 
-      <div className={styles.login_inner_wapper}>
-        {type === 1 ? (
-          <>
-            <div className={styles.title_box}>登录</div>
-            <div className={styles.login_form}>
-              <div className={styles.header}>
-                <div className={`${styles.type_item} ${styles.type_item_activity}`}>手机登录</div>
-                {/* <div className={styles.type_item}>账号登录</div> */}
-              </div>
-
-              <div style={{ marginTop: '26px' }}>
-                <PhoneLoginWapper
-                  seeAgreement={seeAgreement}
-                  setType={setType}
-                  setTenantList={setTenantList}
-                />
-              </div>
-              {/* 暂时隐藏
+                <div style={{ marginTop: '26px' }}>
+                  <PhoneLoginWapper seeAgreement={seeAgreement} setType={setType} setTenantList={setTenantList} />
+                </div>
+                {/* 暂时隐藏
               <div className={styles.form_footer}>
               <div>1</div>
               <a>立即注册</a>
             </div> */}
-            </div>
-          </>
-        ) : (
-          <SelectTenant setType={setType} tenantList={tenantList} />
-        )}
+              </div>
+            </>
+          ) : (
+            <SelectTenant type={type} history={history} setType={setType} tenantList={tenantList} />
+          )}
+        </div>
+        {/* <div className={styles.footer}>猎运智慧物流（天津）有限公司-销售部</div> */}
       </div>
-      {/* <div className={styles.footer}>猎运智慧物流（天津）有限公司-销售部</div> */}
-    </div>
-  </>
-}
+    </>
+  );
+};
 
-export default Login
+export default Login;

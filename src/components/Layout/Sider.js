@@ -8,11 +8,23 @@
  */
 import { Fragment } from 'react';
 import styles from './Sider.module.less';
-import { useSelector } from "react-redux"
+// import { useSelector } from "react-redux"
 import { Link } from 'react-router-dom';
 
+const files = require.context('../../routes/childRoutes', false, /\.ts/);
+const routeList = [];
+files.keys().forEach((key) => {
+  const child = files(key).default;
+  routeList.push(...child);
+});
+
+const ResourceList = [{
+  name: "工作台",
+  routes: routeList
+}]
+
 const SiderCustom = ({ collapsed }) => {
-  const { ResourceList } = useSelector(({ initialState }) => initialState);
+  // const { ResourceList } = useSelector(({ initialState }) => initialState);
 
   const TitleTwo = ({ item }) => {
     return <>
@@ -22,7 +34,7 @@ const SiderCustom = ({ collapsed }) => {
           <div className={styles.title_2_wapper}>
             {
               item.routes.map((item2) => {
-                return <Fragment key={item2.resourceId}>
+                return <Fragment key={item2.name}>
                   <TitleTwo item={item2} />
                 </Fragment>
               })
@@ -47,19 +59,19 @@ const SiderCustom = ({ collapsed }) => {
     </>
   }
 
-  return <div className={styles.sider} style={{ left: collapsed ? "0" : "-260px" }}>
+  return <div className={styles.sider} style={{ left: collapsed ? "0" : "-290px" }}>
     <div className={styles.sider_out_wapper}>
       <div className={styles.sider_inener_wapper}>
         {
-          ResourceList.map((item, index) => {
-            return <Fragment key={item.resourceId} >
+          ResourceList?.map((item, index) => {
+            return <Fragment key={item.name} >
               <div className={styles.title_1}>
                 {item.name}
               </div>
               <div className={styles.title_2_wapper}>
                 {
                   item.routes.map((item2) => {
-                    return <Fragment key={item2.resourceId}>
+                    return <Fragment key={item2.name}>
                       <TitleTwo item={item2} />
                     </Fragment>
                   })

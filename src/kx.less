@@ -1,64 +1,3 @@
-.kx_antd_form_item {
-  margin: 0;
-  padding: 20px;
-  background: #fff;
-}
-
-.kx_antd_input,
-.kx_antd_input_number,
-.kx_antd_input_password,
-.kx_antd_rangepicker,
-.kx_antd_datepicker {
-  width: 100%;
-  max-width: 334px;
-  background: #fff;
-  border: 1px solid #eaeff7;
-  border-radius: 2px;
-}
-
-.kx_antd_select {
-  width: 100%;
-  max-width: 334px;
-}
-
-.kx_antd_select .@{ant-prefix}-select-selector {
-  border: 1px solid #eaeff7 !important;
-}
-
-.kx_antd_input_group {
-  display: flex;
-  width: 100%;
-  max-width: 334px;
-  height: 32px;
-  background: #fff;
-  border-radius: 2px;
-}
-
-.kx_antd_textarea {
-  width: 334px;
-  background: #ffffff;
-  border: 1px solid #eaeff7;
-  border-radius: 2px;
-}
-
-.kx_group_header {
-  height: 56px;
-  padding-left: 21px;
-  color: #324458;
-  font-weight: 500;
-  font-size: 16px;
-  font-family: PingFang SC;
-  line-height: 56px;
-  background: #fff;
-  border-bottom: 1px solid #eee;
-}
-
-#SearcFormWapper .kx_antd_form_item {
-  padding-top: 0px;
-  padding-bottom: 0px;
-  padding-left: 0;
-}
-
 .flex {
   display: flex;
 
@@ -182,5 +121,88 @@
     &:hover {
       color: @primary-color;
     }
+  }
+}
+
+.kx_table_img {
+  width: 30px;
+}
+
+.kx_tabs_box {
+  overflow: hidden;
+  border-bottom: 1px solid #eaeff7;
+
+  .@{ant-prefix}-tabs {
+    height: 100%;
+    padding: 0 10px;
+  }
+
+  .@{ant-prefix}-tabs-nav {
+    margin: 0;
+    height: 100%;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+.kx_table_Wapper {
+  .@{ant-prefix}-table-thead .@{ant-prefix}-table-cell {
+    height: 56px;
+    background: #f5f7fa;
+    font-size: 14px;
+    font-family: PingFang SC;
+    font-weight: 500;
+    color: rgba(50, 68, 88, 0.8);
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .@{ant-prefix}-table-footer {
+    padding: 0;
+    background: #fff;
+  }
+
+  .@{ant-prefix}-table-tbody .@{ant-prefix}-table-placeholder {
+    display: none !important;
+  }
+}
+
+.@{ant-prefix}-input[readOnly]:not(.read-only-default) {
+  border: none;
+  outline: none;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.@{ant-prefix}-select[readOnly] {
+  &.@{ant-prefix}-select-disabled {
+    .@{ant-prefix}-select-selector {
+      background: transparent;
+      border-color: transparent;
+      color: rgba(0, 0, 0, .85)
+    }
+
+    .@{ant-prefix}-select-arrow {
+      display: none;
+    }
+  }
+}
+
+.icon_input {
+  .@{ant-prefix}-input {
+    opacity: 0;
+  }
+}
+
+.table_button_space {
+  .@{ant-prefix}-btn {
+    padding: 0;
+    display: contents;
   }
 }

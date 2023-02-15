@@ -1,4 +1,4 @@
-import { notification } from 'antd';
+import { notification } from 'kx_component';
 import { isDevEnv, isTestEnv } from '@/consts/env';
 
 // 开发环境log处理

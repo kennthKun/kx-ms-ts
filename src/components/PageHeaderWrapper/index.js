@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb } from 'kx_component';
 import { Link } from 'react-router-dom';
 import MENUS from '../../consts/menus';
 import { routerMenuMap } from '../../consts/breadcrumbPath';

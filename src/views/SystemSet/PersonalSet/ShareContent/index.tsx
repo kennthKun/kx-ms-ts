@@ -1,10 +1,10 @@
-import { Button } from "antd"
-import { InputNumber } from "antd"
+import { Button } from "kx_component"
+import { InputNumber } from "kx_component"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import styles from "../index.module.less"
 import copy from 'copy-to-clipboard';
-import { message } from "antd"
+import { message } from "kx_component"
 
 const ShareContent = () => {
 

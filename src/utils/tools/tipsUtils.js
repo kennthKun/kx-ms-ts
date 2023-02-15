@@ -1,4 +1,4 @@
-import { notification } from 'antd';
+import { notification } from 'kx_component';
 // cms统一提示风格组件
 export default {
   /**

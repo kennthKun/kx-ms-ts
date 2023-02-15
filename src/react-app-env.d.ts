@@ -84,7 +84,6 @@ declare module "*.less" {
 }
 
 declare module '@'
-declare module 'antd'
 declare module 'lodash'
 declare module 'react-redux'
 declare module 'kx_component'
